@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>注册界面</title>
+	<link rel="stylesheet" href="css/register.css"/>
+	<script src="js/vue.js"></script>
+	<script src="js/jquery-3.5.1.js"></script>
+
+</head>
+<body>
+<canvas class="cavs" width="1575" height="1337"></canvas>
+</body>
+<script>
+	var vue=new Vue({
+		el:"#login_edit",
+		methods:{
+			register:function(){
+				if(this.passWord!==this.repeat){
+					alert("两次输入密码不一致，请重新输入");
+				}else{
+					$.post("/register",{ID:$("#ID").val(),PassWord:$("#PassWord").val()},function (data) {
+						if(data==="success"){
+							alert("注册成功！");
+							location.assign("login.html")
+						}else if(data==="fail"){
+							alert("注册失败！")
+						}else if(data==="repeat"){
+							alert("该用户名已存在！")
+						}
+					})
+				}
+			},
+			back:function (){
+				location.assign("login.html");
+			}
+		}
+	})
+</script>
+<script src="js/ban.js"></script>
+</body>
+</html>

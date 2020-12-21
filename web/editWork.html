@@ -1,0 +1,1160 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/Editwork.css" />
+		<script src="js/jquery-3.5.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/Mytools.js"></script>
+		<script src="js/ban.js"></script>
+	</head>
+	<body>
+	<canvas class="cavs" width="1575" height="1337"></canvas>
+		<div id="bg"></div>
+		<div id="search_dialog">
+			<div class="border" style="margin-left: 80px">
+				<input type="text"  autocomplete="off" class="Text" id="Project_Name_DiaSearch" placeholder="项目名称" />
+			</div>
+			<div class="dialog_button" style="margin-top: 40px">
+				<input type="button" class="Dialog_Button"  value="查询" @click="searched" />
+			</div>
+			<div class="dialog_button" style="margin-top: 40px">
+				<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+			</div>
+		</div>
+		<div id="delete_dialog">
+			<div class="border">
+				<input type="text"  autocomplete="off" class="Text" id="Project_Name_DiaDelete" placeholder="项目名称" />
+			</div>
+			<div class="dialog_button">
+				<input type="button" class="Dialog_Button"  value="删除"  />
+			</div>
+			<div class="dialog_button">
+				<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+			</div>
+		</div>
+		<div id="delete_alert">
+			<div id="alert_words">
+                  确认删除该项目吗
+			</div>
+			<div class="dialog_button">
+				<input type="button" class="Dialog_Button"  value="确认"  @click="Delete"/>
+			</div>
+			<div class="dialog_button">
+				<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+			</div>
+		</div>
+		<div id="plan_delete_alert">
+			<div id="alert_words">
+				确认删除该项目吗
+			</div>
+			<div class="dialog_button">
+				<input type="button" class="Dialog_Button"  value="确认"  @click="Delete"/>
+			</div>
+			<div class="dialog_button">
+				<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+			</div>
+		</div>
+		<div id="change_dialog" >
+			<div class="border" style="margin-left: 80px">
+				<input type="text"  autocomplete="off" class="Text" id="Project_Name_DiaChange"  />
+			</div>
+			<div class="border" style="margin-left: 80px">
+				<input type="text"  autocomplete="off" class="Text" id="Time_Type_DiaChange"  />
+			</div>
+			<div class="dialog_button" style="margin-top: 40px">
+				<input type="button" class="Dialog_Button"  value="修改" @click="update" />
+			</div>
+			<div class="dialog_button" style="margin-top: 40px">
+				<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+			</div>
+		</div>
+		<div id="plan_change_dialog">
+			<div class="border">
+				<input type="text" autocomplete="off" class="Text" id="Plan_Name_DiaChange" style="margin-left: 80px" />
+			</div>
+			<div class="border">
+				<input type="text" autocomplete="off" class="Text" id="Plan_Time_DiaChange" style="margin-left: 80px" />
+			</div>
+			<div class="border">
+				<input type="text"  autocomplete="off" class="Text" id="Plan_preWork_DiaChange" style="margin-left: 80px" />
+			</div>
+			<div class="dialog_button" style="margin-top: 50px">
+				<input type="button" class="Dialog_Button"  value="修改" @click="update" />
+			</div>
+			<div class="dialog_button" style="margin-top: 50px">
+				<input type="button" class="Dialog_Button"  value="删除"  @click="Delete" />
+			</div>
+			<div class="dialog_button" style="margin-top: 50px">
+				<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+			</div>
+		</div>
+		<div id="plan_search_dialog">
+			<div class="border">
+				<input type="text" style="margin-left: 80px" autocomplete="off" class="Text" id="Plans_Name_DiaSearch" placeholder="计划名称" />
+			</div>
+			<div class="dialog_button" style="margin-top: 40px">
+				<input type="button" class="Dialog_Button"  value="查询"  @click="query"/>
+			</div>
+			<div class="dialog_button" style="margin-top: 40px">
+				<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+			</div>
+		</div>
+			<div id="addPlans">
+				<div class="title">
+					<span>建立计划</span>
+				</div>
+				<div class="border">
+					<input type="text" autocomplete="off" class="Text" id="addPlans_name" placeholder="计划名称" />
+				</div>
+				<div class="border">
+					<input type="text" autocomplete="off" class="Text" id="addPlans_time" placeholder="持续时间"  />
+				</div>
+				<div class="border">
+					<input type="text"  autocomplete="off" class="Text" id="addPlans_preWork"  placeholder="紧前工作(逗号区隔)" />
+				</div>
+				<div class="dialog_button" style="margin-top: 40px">
+					<input type="button" class="Dialog_Button"  value="添加"  @click="add"/>
+				</div>
+				<div class="dialog_button" style="margin-top: 40px">
+					<input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+				</div>
+			</div>
+		<div id="plan_display">
+			<div id="title">
+				<div id="plan_title">
+				   计划列表
+				</div>
+				<div class="plan_buttonArea">
+					<input type="button"  class="plan_button" value="返回" @click="back"/>
+				</div>
+				<div class="plan_buttonArea" >
+					<input type="button"  class="plan_button" value="添加" @click="add"/>
+				</div>
+				<div class="plan_buttonArea">
+					<input type="button"  class="plan_button" id="searchPlan" value="查询" @click="search"/>
+				</div>
+			</div> 
+			<div id="Screen">
+			 <div id="formHead">
+					<div class="field1">
+						<span>编号</span>
+					</div>
+					<div class="field">
+						<span>名称</span>
+					</div>
+					<div class="field">
+						<span>时间</span>
+					</div>
+					<div class="field2">
+						<span>紧前工作</span>
+					</div>
+				</div>
+				</div>
+			<div id="plan_turn_page">
+				<img src="img/arrow-left-bold.png"  id="plan_turn_left" style="margin-left: 170px;" @click="plan_turn_left">
+				<img src="img/arrow-right-bold.png" id="plan_turn_right" style="margin-left: 50px;" @click="plan_turn_right">
+			</div>
+			<div class="plan_buttonArea">
+				<input type="button"  class="plan_button" value="删除项目" @click="Delete"/>
+			</div>
+			<div class="plan_buttonArea">
+				<input type="button"  class="plan_button" value="编辑项目" @click="edit"/>
+			</div>
+				
+			</div> 
+		<div id="header">
+			<div id="author">
+		
+			</div>
+		</div>
+		<div id="Main">
+		<div id="projects_edit">
+			<div class="button" >
+				<input type="button" class="Button" value="项目查找" @click="search"/>
+			</div>
+			<div class="button" >
+				<input type="button" class="Button" value="项目筛选" />
+			</div>
+			<div class="button" >
+				<input type="button" class="Button" value="退出" @click="back"/>
+			</div>
+		</div>
+		<div id="project_table">
+			<div id="title">
+				<div id="words">
+					项目列表
+				</div>
+				<div id="showAll_Button">
+					<input type="button"  id="showAll"  value="初始化" @click="showAll"/>
+				</div>
+			</div>
+			<div id="display">
+			  <div id="datasArea">
+				  <div id="formHead">
+					<div class="ID">
+						<span>编号</span>
+					</div>
+				  	<div class="Name">
+				  		<span>项目名</span>
+				  	</div>
+				  	<div class="TimeType">
+				  		<span>时间单位</span>
+				  	</div>
+					<div class="Plan_sum">
+						<span>计划数量</span>
+					</div>
+				  </div>
+			  </div>
+				<div id="turn_page">
+					<img src="img/arrow-left-bold.png" style="margin-left: 180px;margin-top: 5px;visibility: hidden" id="turn_left" @click="turn_left">
+					<img src="img/arrow-right-bold.png"style="margin-left: 60px;margin-top: 5px;visibility: hidden" id="turn_right" @click="turn_right">
+				</div>
+			</div>
+			
+		</div>
+		</div>
+		<script>
+			
+			var projects_edit=new Vue({
+				el:"#projects_edit",
+				methods:{
+					search:function(){
+						$("#bg").css("display","block");
+						$("#Project_Name_DiaSearch").val("");
+						$("#search_dialog").css("display","block");
+					},
+					Delete:function(){
+						$("#bg").css("display","block");
+						$("#delete_dialog").css("display","block");
+					},
+					sort:function(){
+
+					},
+					back:function(){
+						location.assign("mainDish.html?user="+user+"&user_id="+user_id)
+					}
+				}
+			})
+			var search_dialog=new Vue({
+				el:"#search_dialog",
+				methods:{
+					searched:function(){
+						let name=$("#Project_Name_DiaSearch").val();
+						$("#datasArea").html("  <div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"ID\">\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  \t<div class=\"Name\">\n" +
+								"\t\t\t\t  \t\t<span>项目名</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+								"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+								"\t\t\t\t\t\t<span>计划数量</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  </div>");
+						var searched_Projected=new Array();
+						for(let i=0;i<projectArray.length;i++){
+							let check=projectArray[i].name.replace(name,"");
+							if(check.length<projectArray[i].name.length){
+								searched_Projected.push(projectArray[i])
+							}
+						}
+						projectArray=searched_Projected;
+						page=0;
+						totalPage=Math.floor(projectArray.length/5);
+						let sum=0;
+						for(let i=page*5;i<projectArray.length&&sum<5;i++){
+							$("#datasArea").append(
+									"<div class='project_info' id='test' >"+
+									"<div class='ID'>"+projectArray[i].id+"</div>"+
+									"<div class='Name'>"+projectArray[i].name+"</div>"+
+									"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+									"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+									"</div>");
+							sum++;
+						}
+						check_page();
+						$("#bg").css("display","none");
+						$("#search_dialog").css("display","none");
+					},
+					back:function(){
+						$("#bg").css("display","none");
+						$("#search_dialog").css("display","none");
+					}
+				}
+			})
+			var searched=false;
+			var plan_search_dialog=new Vue({
+				el:"#plan_search_dialog",
+				methods:{
+					back:function(){
+						$("#bg").css("z-index","1");
+						$("#plan_search_dialog").css("display","none");
+					},
+					query:function (){
+						if(!searched) {
+							let name = $("#Plans_Name_DiaSearch").val();
+							$("#Screen").html("<div id=\"formHead\">\n" +
+									"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+									"\t\t\t\t\t\t<span>编号</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+									"\t\t\t\t\t\t<span>名称</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+									"\t\t\t\t\t\t<span>时间</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+									"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t</div>");
+							plan_projectArray=new Array();
+							for (let i = 0; i < plan_projectArraySave.length; i++) {
+								let check=plan_projectArraySave[i].name;
+								check=check.replace(name,"");
+								if (check.length<plan_projectArraySave[i].name.length) {
+									plan_projectArray.push(plan_projectArraySave[i]);
+								}
+							}
+							plan_page=0;
+							plan_totalPage=0;
+							plan_totalPage=Math.floor(plan_projectArray.length/5);
+							let sum=0;
+							for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+								$("#Screen").append("<div class=\"info\">\n" +
+										"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+										"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+										"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+										"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+										"</div>")
+								sum++;
+							}
+							plan_check_page();
+							searched=true;
+							$("#searchPlan").val("还原");
+							$("#bg").css("z-index","1");
+							$("#plan_search_dialog").css("display","none");
+							$("#Plans_Name_DiaSearch").val("");
+						}
+					}
+				}
+			})
+			var delete_diaglog=new Vue({
+				el:"#delete_dialog",
+				methods:{
+					Delete:function(){
+						$.post("/deleteProject",{
+							user:user_id,
+							project_id:selectProject_id
+						},function (data) {
+							if(data==="success"){
+								alert("删除成功");
+
+							}else if(data==="fail"){
+								alert("删除失败");
+							}
+						})
+					},
+					back:function(){
+						$("#bg").css("display","none");
+						$("#delete_dialog").css("display","none");
+					}
+				}
+			})
+			var plan_delete_alert=new Vue({
+				el:"#plan_delete_alert",
+				methods:{
+					Delete:function () {
+						$.post("/deletePlans",{
+							user_id:user_id,
+							project_id:selectProject_id,
+							work_id:plan_id,
+						},function (data) {
+							if(data==="success"){
+								alert("删除成功");
+								$("#plan_delete_alert").css("display","none");
+								$("#plan_change_dialog").css("display","none");
+								$("#bg").css("z-index","1");
+								for(let i=0;i<plan_projectArraySave.length;i++){
+									if(plan_id===plan_projectArraySave[i].id){
+										plan_projectArraySave.splice(i,1);
+										plan_projectArray=plan_projectArraySave;
+									}
+								}
+								for(let i=0;i<projectArray_save.length;i++){
+									if(selectProject_id===projectArray_save[i].id){
+										projectArray_save[i].itemsCount-=1;
+										projectArray=projectArray_save;
+										break;
+									}
+								}
+								$("#Screen").html("<div id=\"formHead\">\n" +
+										"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+										"\t\t\t\t\t\t<span>编号</span>\n" +
+										"\t\t\t\t\t</div>\n" +
+										"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+										"\t\t\t\t\t\t<span>名称</span>\n" +
+										"\t\t\t\t\t</div>\n" +
+										"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+										"\t\t\t\t\t\t<span>时间</span>\n" +
+										"\t\t\t\t\t</div>\n" +
+										"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+										"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+										"\t\t\t\t\t</div>\n" +
+										"\t\t\t\t</div>");
+								plan_page=0;
+								plan_totalPage=Math.floor(plan_projectArray.length/5);
+								let sum=0;
+								for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+									$("#Screen").append("<div class=\"info\">\n" +
+											"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+											"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+											"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+											"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+											"</div>")
+									sum++;
+								}
+								   plan_check_page();
+								   selectProject_total-=1;
+								   select.find(".Plan_sum").html(selectProject_total);
+							    }else if(data==="fail"){
+								  alert("出现错误");
+							}
+						})
+					},
+					back:function () {
+						$("#bg").css("z-index","3");
+						$("#plan_delete_alert").css("display","none");
+					}
+				}
+			})
+			var delete_alert=new Vue({
+				el:"#delete_alert",
+				methods:{
+					Delete:function(){
+						$.post("/deleteProject",{
+							user:user_id,
+							project_id:selectProject_id
+						},function (data) {
+							if(data==="success"){
+								alert("删除成功");
+								$("#delete_alert").css("display","none");
+								$("#bg").css("display","none");
+								$("#plan_display").css("display","none");
+								$("#bg").css("z-index","1");
+								for(let i=0;i<projectArray_save.length;i++){
+									if(selectProject_id===projectArray_save[i].id){
+										projectArray_save.splice(i,1);
+										projectArray=projectArray_save;
+										break;
+									}
+								}
+								page=0;
+								totalPage=Math.floor(projectArray.length/5);
+								let sum=0;
+								$("#datasArea").html("  <div id=\"formHead\">\n" +
+										"\t\t\t\t\t<div class=\"ID\">\n" +
+										"\t\t\t\t\t\t<span>编号</span>\n" +
+										"\t\t\t\t\t</div>\n" +
+										"\t\t\t\t  \t<div class=\"Name\">\n" +
+										"\t\t\t\t  \t\t<span>项目名</span>\n" +
+										"\t\t\t\t  \t</div>\n" +
+										"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+										"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+										"\t\t\t\t  \t</div>\n" +
+										"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+										"\t\t\t\t\t\t<span>计划数量</span>\n" +
+										"\t\t\t\t\t</div>\n" +
+										"\t\t\t\t  </div>");
+								for(let i=page*5;i<projectArray.length&&sum<5;i++){
+									$("#datasArea").append(
+											"<div class='project_info' id='test' >"+
+											"<div class='ID'>"+projectArray[i].id+"</div>"+
+											"<div class='Name'>"+projectArray[i].name+"</div>"+
+											"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+											"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+											"</div>");
+									sum++;
+								}
+								check_page();
+							}else if(data==="fail"){
+								alert("删除失败");
+							}
+						})
+					},
+					back:function(){
+						$("#bg").css("z-index","1");
+						$("#delete_alert").css("display","none");
+					}
+				}
+			})
+			var change_dialog=new Vue({
+				el:"#change_dialog",
+				methods:{
+					update:function(){
+						let name=$("#Project_Name_DiaChange").val();
+						let timeType=$("#Time_Type_DiaChange").val();
+						$.post("/UpdateProject",{
+							id:selectProject_id,
+							user:user_id,
+							name:name,
+							time_type:timeType
+						},function (data) {
+							if(data==="success"){
+								alert("修改成功")
+								select.find(".Name").html(name);
+								select.find(".TimeType").html(timeType);
+								for(let i=0;i<projectArray_save.length;i++){
+									if(selectProject_id===projectArray_save[i].id){
+										projectArray_save[i]={id:selectProject_id,name:name,
+										type:timeType,itemsCount:projectArray[i].itemsCount};
+										projectArray=projectArray_save;
+										break;
+									}
+								}
+							}else if(data==="fail"){
+								alert("出现错误")
+							}
+						},"text");
+						$("#bg").css("z-index","1");
+						$("#change_dialog").css("display","none");
+					},
+					back:function(){
+						$("#bg").css("z-index","1");
+						$("#change_dialog").css("display","none");
+					}
+				}
+			})
+			var plan_change_dialog=new Vue({
+				el:"#plan_change_dialog",
+				methods:{
+					update:function(){
+						let name=$("#Plan_Name_DiaChange").val();
+						let time=$("#Plan_Time_DiaChange").val();
+						let preWork=$("#Plan_preWork_DiaChange").val();
+						$.post("/UpdatePlan",{
+							user:user_id,
+							name:name,
+							time:time,
+							preWork:preWork,
+							project_id:selectProject_id,
+							work_id:plan_id,
+						},function (data) {
+							if(data==="success"){
+								alert("修改成功")
+								plan_select.find("#name").html(name);
+								plan_select.find("#time").html(time);
+								plan_select.find("#preWork").html(preWork);
+								for(let i=0;i<plan_projectArraySave.length;i++){
+									if(plan_id===plan_projectArraySave[i].id){
+										plan_projectArraySave[i]={id:plan_id,name:name,timeType:time,
+										preWork:preWork};
+										plan_projectArray=plan_projectArraySave;
+										break;
+									}
+								}
+								refresh();
+							}else if(data==="fail") {
+								alert("出现错误");
+							}
+						},"text");
+						$("#bg").css("z-index","2");
+						$("#plan_change_dialog").css("display","none");
+					},
+					back:function(){
+						$("#bg").css("z-index","2");
+						$("#plan_change_dialog").css("display","none");
+					},
+					Delete:function () {
+						$("#bg").css("z-index","5");
+						$("#plan_delete_alert").css("display","block");
+						$("#plan_delete_alert").css("z-index","6");
+					}
+				}
+			})
+			var addPlans=new Vue({
+				el:"#addPlans",
+				methods:{
+					add:function (){
+						var name=$("#addPlans_name").val();
+						var time=$("#addPlans_time").val();
+						var preWorks=$("#addPlans_preWork").val();
+						selectProject_total+=1;
+						let max=0;
+						plan_projectArray.forEach(function(v){
+							max=Math.max(v.id,max);
+						});
+						max+=1;
+						$.post("/Work_save",{
+							user:user_id,
+							id:max,
+							project_id:selectProject_id,
+							name:name,
+							time:time,
+							pre_work:preWorks,
+						},function (data) {
+							if(data==="success"){
+								alert("添加成功");
+								for(let i=0;i<projectArray_save.length;i++){
+									if(selectProject_id===projectArray_save[i].id){
+										projectArray_save[i].itemsCount=parseInt(projectArray_save[i].itemsCount)+1;
+										projectArray=projectArray_save;
+										break;
+									}
+								}
+								select.find(".Plan_sum").html(selectProject_total);
+							}else if(data==="fail") {
+								alert("添加失败");
+							}
+						},"text");
+						$("#addPlans_name").val("");
+						$("#addPlans_time").val("");
+						$("#addPlans_preWork").val("");
+						plan_projectArraySave.push({id:max,name:name,timeType:time,preWork:preWorks});
+						plan_projectArray=plan_projectArraySave;
+						$("#bg").css("z-index","2");
+						$("#addPlans").css("display","none");
+						$("#Screen").html("<div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+								"\t\t\t\t\t\t<span>名称</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+								"\t\t\t\t\t\t<span>时间</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+								"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t</div>");
+						plan_page=0;
+						plan_totalPage=Math.floor(plan_projectArray.length/5);
+						let sum=0;
+
+						for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+							$("#Screen").append("<div class=\"info\">\n" +
+									"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+									"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+									"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+									"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+									"</div>")
+							sum++;
+						}
+						plan_check_page();
+					},
+					back:function (){
+						$("#bg").css("z-index","2");
+						$("#addPlans").css("display","none");
+					}
+				}
+			})
+			var clickTime=1;
+			$(document).on("click","#time",function () {
+				clickTime*=-1;
+				plan_projectArray.sort(function (a,b){
+					return (b.timeType-a.timeType)*clickTime;
+				});
+				refresh();
+			})
+			$(document).on("click","#num",function () {
+				clickTime*=-1;
+				plan_projectArray.sort(function (a,b){
+					return (a.id-b.id)*clickTime;
+				});
+				refresh();
+			})
+			$(document).on("click","#pre",function () {
+				clickTime*=-1;
+				plan_projectArray.sort(function (a,b){
+					return (a.preWork.length-b.preWork.length)*clickTime;
+				});
+				refresh();
+			})
+			$(document).on("click","#name",function () {
+				clickTime*=-1;
+				plan_projectArray.sort(function (a,b){
+					return (a.name.charCodeAt(0)-b.name.charCodeAt(0))*clickTime;
+				});
+				refresh();
+			})
+			var refresh=function () {
+				$("#Screen").html("<div id=\"formHead\">\n" +
+						"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+						"\t\t\t\t\t\t<span>编号</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+						"\t\t\t\t\t\t<span>名称</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+						"\t\t\t\t\t\t<span>时间</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+						"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t</div>");
+				plan_page=0;
+				plan_totalPage=Math.floor(plan_projectArray.length/5);
+				let sum=0;
+				for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+					$("#Screen").append("<div class=\"info\">\n" +
+							"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+							"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+							"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+							"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+							"</div>")
+					sum++;
+				}
+				plan_check_page();
+			}
+			var plan_display=new Vue({
+				el:"#plan_display",
+				methods:{
+					back:function(){
+					        $("#bg").css("display","none");
+							$("#plan_display").css("display","none");
+						    $("#searchPlan").val("查询");
+						    searched=false;
+					},
+					add:function (){
+						$("#bg").css("z-index","3");
+						$("#addPlans").css("display","block");
+						$("#addPlans").css("z-index","4");
+					},
+					search:function () {
+						if (!searched) {
+							$("#bg").css("z-index", "3");
+						    $("#plan_search_dialog").css("display", "block");
+						    $("#plan_search_dialog").css("z-index", "4");
+					} else{
+							$("#Screen").html("<div id=\"formHead\">\n" +
+									"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+									"\t\t\t\t\t\t<span>编号</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+									"\t\t\t\t\t\t<span>名称</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+									"\t\t\t\t\t\t<span>时间</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+									"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+									"\t\t\t\t\t</div>\n" +
+									"\t\t\t\t</div>");
+							plan_projectArray=plan_projectArraySave;
+							plan_page=0;
+							plan_totalPage=Math.floor(plan_projectArraySave.length/5);
+							let sum=0;
+							for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+								$("#Screen").append("<div class=\"info\">\n" +
+										"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+										"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+										"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+										"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+										"</div>")
+								sum++;
+							}
+							searched=false;
+							$("#searchPlan").val("查询");
+							plan_check_page();
+						}
+					},
+					edit:function (){
+						$("#bg").css("display","block");
+						$("#bg").css("z-index","3");
+						$("#change_dialog").css("display","block");
+						$("#change_dialog").css("z-index","4");
+						$("#Project_Name_DiaChange").val(selectProject_name);
+						$("#Time_Type_DiaChange").val(selectProject_timeType);
+                        $.post("/UpdateProject",{
+                        	id:selectProject_id,
+							name:selectProject_name,
+							time_type:selectProject_timeType
+						},function (data) {
+							if(data==="success"){
+								alert("修改成功")
+							}else if(data==="fail"){
+								alert("出现错误")
+							}
+						},"text")
+					},
+					Delete:function (){
+						$("#bg").css("display","block");
+						$("#bg").css("z-index","3");
+						$("#delete_alert").css("display","block");
+						$("#delete_alert").css("z-index","4");
+					},
+					plan_turn_left:function () {
+						plan_page--;
+						$("#Screen").html("<div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+								"\t\t\t\t\t\t<span>名称</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+								"\t\t\t\t\t\t<span>时间</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+								"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t</div>");
+						let sum=0;
+						for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+							$("#Screen").append("<div class=\"info\">\n" +
+									"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+									"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+									"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+									"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+									"</div>")
+							sum++;
+						}
+						plan_check_page();
+					},
+					plan_turn_right:function () {
+						plan_page++;
+						$("#Screen").html("<div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+								"\t\t\t\t\t\t<span>名称</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+								"\t\t\t\t\t\t<span>时间</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+								"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t</div>");
+						let sum=0;
+						for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+							$("#Screen").append("<div class=\"info\">\n" +
+									"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+									"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+									"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+									"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+									"</div>")
+							sum++;
+						}
+						plan_check_page();
+					}
+				}
+			})
+			var projectRefresh=function(){
+				page=0;
+				totalPage=Math.floor(projectArray.length/5);
+				let sum=0;
+				$("#datasArea").html("  <div id=\"formHead\">\n" +
+						"\t\t\t\t\t<div class=\"ID\">\n" +
+						"\t\t\t\t\t\t<span>编号</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t  \t<div class=\"Name\">\n" +
+						"\t\t\t\t  \t\t<span>项目名</span>\n" +
+						"\t\t\t\t  \t</div>\n" +
+						"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+						"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+						"\t\t\t\t  \t</div>\n" +
+						"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+						"\t\t\t\t\t\t<span>计划数量</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t  </div>");
+				for(let i=page*5;i<projectArray.length&&sum<5;i++){
+					$("#datasArea").append(
+							"<div class='project_info' id='test' >"+
+							"<div class='ID'>"+projectArray[i].id+"</div>"+
+							"<div class='Name'>"+projectArray[i].name+"</div>"+
+							"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+							"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+							"</div>");
+					sum++;
+				}
+				check_page();
+			}
+			$(document).on("click","#formHead>.ID",function () {
+				clickTime*=-1;
+				projectArray.sort(function (a,b){
+					return (b.id-a.id)*clickTime;
+				});
+				projectRefresh();
+			})
+			$(document).on("click","#formHead>.Name",function () {
+				clickTime*=-1;
+				projectArray.sort(function (a,b){
+					return (a.name.charCodeAt(0)-b.name.charCodeAt(0))*clickTime;
+				});
+				projectRefresh();
+			})
+			$(document).on("click","#formHead>.TimeType",function () {
+				clickTime*=-1;
+				projectArray.sort(function (a,b){
+					return (a.type.charCodeAt(0)-b.type.charCodeAt(0))*clickTime;
+				});
+				projectRefresh();
+			})
+			$(document).on("click","#formHead>.Plan_sum",function () {
+				clickTime*=-1;
+				projectArray.sort(function (a,b){
+					return (a.itemsCount-b.itemsCount)*clickTime;
+				});
+				projectRefresh();
+			})
+			var showAll_Button=new Vue({
+				el:"#showAll_Button",
+				methods:{
+					showAll:function(){
+						projectArray=projectArray_save;
+						page=0;
+						totalPage=Math.floor(projectArray.length/5);
+						let sum=0;
+						$("#datasArea").html("  <div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"ID\">\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  \t<div class=\"Name\">\n" +
+								"\t\t\t\t  \t\t<span>项目名</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+								"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+								"\t\t\t\t\t\t<span>计划数量</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  </div>");
+						for(let i=page*5;i<projectArray.length&&sum<5;i++){
+							$("#datasArea").append(
+									"<div class='project_info' id='test' >"+
+									"<div class='ID'>"+projectArray[i].id+"</div>"+
+									"<div class='Name'>"+projectArray[i].name+"</div>"+
+									"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+									"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+									"</div>");
+							sum++;
+						}
+						check_page();
+					}
+				}
+			});
+
+			var turn_page=new Vue({
+				el:"#turn_page",
+				methods:{
+					turn_left:function (){
+						page--;
+						$("#datasArea").html("  <div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"ID\">\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  \t<div class=\"Name\">\n" +
+								"\t\t\t\t  \t\t<span>项目名</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+								"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+								"\t\t\t\t\t\t<span>计划数量</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  </div>");
+						let sum=0;
+						for(let i=page*5;i<projectArray.length&&sum<5;i++){
+							$("#datasArea").append(
+									"<div class='project_info' id='test' >"+
+									"<div class='ID'>"+projectArray[i].id+"</div>"+
+									"<div class='Name'>"+projectArray[i].name+"</div>"+
+									"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+									"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+									"</div>");
+							sum++;
+						}
+						check_page();
+					},
+					turn_right:function (){
+						page++;
+						$("#datasArea").html("  <div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"ID\">\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  \t<div class=\"Name\">\n" +
+								"\t\t\t\t  \t\t<span>项目名</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+								"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+								"\t\t\t\t\t\t<span>计划数量</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  </div>");
+						let sum=0;
+						for(let i=page*5;i<projectArray.length&&sum<5;i++){
+							$("#datasArea").append(
+									"<div class='project_info' id='test' >"+
+									"<div class='ID'>"+projectArray[i].id+"</div>"+
+									"<div class='Name'>"+projectArray[i].name+"</div>"+
+									"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+									"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+									"</div>");
+							sum++;
+						}
+						check_page();
+					}
+				}
+			})
+			var check_page=function (){
+				if(page>0){
+					$("#turn_left").css("visibility","visible")
+				}else{
+					$("#turn_left").css("visibility","hidden")
+				}
+				if(page<totalPage){
+					$("#turn_right").css("visibility","visible")
+				}else{
+					$("#turn_right").css("visibility","hidden")
+				}
+			}
+			var plan_check_page=function (){
+				if(plan_page>0){
+					$("#plan_turn_left").css("visibility","visible")
+				}else{
+					$("#plan_turn_left").css("visibility","hidden")
+				}
+				if(plan_page<plan_totalPage){
+					$("#plan_turn_right").css("visibility","visible")
+				}else{
+					$("#plan_turn_right").css("visibility","hidden")
+				}
+			}
+			var plan_projectArray=new Array();
+			var plan_projectArraySave=new Array();
+			var plan_page=0;
+			var plan_totalPage=0;
+			var selectProject_id="";
+			var selectProject_name="";
+			var selectProject_timeType="";
+			var selectProject_total="";
+			var select;
+			$(document).on("click",".project_info",function(){
+				$("#Screen").html("<div id=\"formHead\">\n" +
+						"\t\t\t\t\t<div class=\"field1\" id='num'>\n" +
+						"\t\t\t\t\t\t<span>编号</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t\t<div class=\"field\" id='name'>\n" +
+						"\t\t\t\t\t\t<span>名称</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t\t<div class=\"field\" id='time'>\n" +
+						"\t\t\t\t\t\t<span>时间</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t\t<div class=\"field2\" id='pre'>\n" +
+						"\t\t\t\t\t\t<span>紧前工作</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t</div>");
+				plan_page=0;
+				plan_totalPage=0;
+				selectProject_id=$(this).find(".ID").html();
+				selectProject_name=$(this).find(".Name").html();
+				selectProject_timeType=$(this).find(".TimeType").html();
+				selectProject_total=parseInt($(this).find(".Plan_sum").html());
+				select=$(this);
+				$("#bg").css("display","block");
+				$("#plan_display").css("display","block");
+				$.ajax({
+					cache: "false",
+					async: false,
+					type: "post",
+					url: "/getPlans",
+					data: {
+						project_id: selectProject_id,
+						user: user_id,
+					},
+					success: function (data) {
+						if (data !== "") {
+							plan_projectArray = JSON.parse(data);
+							plan_projectArraySave = JSON.parse(data);
+						} else {
+							plan_projectArray = new Array();
+							plan_projectArraySave = new Array();
+						}
+					},
+					error: function () {
+						alert("fail");
+					},
+				});
+				plan_totalPage=Math.floor(plan_projectArray.length/5);
+				let sum=0;
+				for(let i=plan_page*5;i<plan_projectArray.length&&sum<5;i++) {
+					$("#Screen").append("<div class=\"info\">\n" +
+							"<div class=\"field1\" id=\"Id\">"+plan_projectArray[i].id + "</div>" +
+							"<div class=\"field\" id=\"name\">"+plan_projectArray[i].name+ "</div>" +
+							"<div class=\"field\" id=\"time\">"+ plan_projectArray[i].timeType + "</div>" +
+							"<div class=\"field2\" id=\"preWork\">"+plan_projectArray[i].preWork + "</div>" +
+							"</div>")
+					sum++;
+				}
+				plan_check_page();
+			})
+			var name="";
+			var time="";
+			var preWork="";
+			var plan_id="";
+			var plan_select;
+			$(document).on("click",".info",function () {
+				plan_select=$(this);
+				name=$(this).find("#name").html();
+				time=$(this).find("#time").html();
+				preWork=$(this).find("#preWork").html();
+				plan_id=$(this).find("#Id").html();
+				$("#bg").css("display","block");
+				$("#bg").css("z-index","3");
+				$("#plan_change_dialog").css("display","block");
+				$("#plan_change_dialog").css("z-index","4");
+				$("#Plan_Name_DiaChange").val(name);
+				$("#Plan_Time_DiaChange").val(time);
+				$("#Plan_preWork_DiaChange").val(preWork);
+			})
+			var user="";
+			var user_id="";
+			var projectArray=new Array();
+			var projectArray_save=new Array();
+			var page=0;
+			var totalPage=0;
+			window.onload=function (){
+				user=getURLParam("user");
+				user_id=getURLParam("user_id")
+				$("#author").append('用户 '+user+',欢迎你！');
+				$.ajax({
+					cache:"false",
+					async:false,
+					type:"post",
+					url:"/getProjects",
+					data: {
+						user_id: user_id
+					},
+					success:function (data){
+						projectArray=JSON.parse(data);
+						projectArray_save=projectArray;
+					},
+					error:function (){
+						alert("fail");
+					}
+				});
+				totalPage=Math.floor(projectArray.length/5);
+				let sum=0;
+				for(let i=page*5;i<projectArray.length&&sum<5;i++){
+					$("#datasArea").append(
+							"<div class='project_info' id='test' >"+
+							"<div class='ID'>"+projectArray[i].id+"</div>"+
+							"<div class='Name'>"+projectArray[i].name+"</div>"+
+							"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+							"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+							"</div>");
+					sum++;
+				}
+				check_page();
+			}
+		</script>
+	</body>
+</html>

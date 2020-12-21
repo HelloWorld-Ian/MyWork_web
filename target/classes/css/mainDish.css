@@ -1,0 +1,90 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.cavs{
+	z-index:0;
+	position: fixed;
+	width:95%;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+html,body{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../img/bg1.jpg") no-repeat;
+	background-size: 100% 100%;
+
+}
+#header{
+	width: 100%;
+	height:15px;
+	border-bottom: 1px solid dimgray;
+}
+#author{
+	font-size:0.1px;
+	float: right;
+	padding-bottom: 0px;
+}
+#ID,#PassWord{
+	width: 96%;
+	height: 82%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	background-color: midnightblue;
+	color: aliceblue;
+	border-radius: 30px;
+    text-align: center;
+}
+.Button{
+	width: 98%;
+	height: 89%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:rgba(0, 0, 0, 0.5);
+	color: #F0F8FF;
+	float: left;
+}
+.Button:hover{
+	color: white !important;
+	background:linear-gradient(to right,rgba(500, 0, 20, 0.5),rgba(0, 0, 800, 0.8));
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#Main{
+	position: absolute;
+    left: 50%;
+	top:3%;
+	margin-left: -160px;
+	opacity: 0.75;
+	width:  320px;
+	height: 450px;
+	margin-top: 50px;
+	background: rgba(0, 0, 0, 0.5);
+	border-radius: 10px;
+	box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
+	padding-top: 1px;
+}
+#Main>.title{
+	margin-top: 25px;
+	text-align: center;
+	font-size: 45px;
+	color: white;
+}
+#Main>.button{
+	width: 199px;
+	height: 35px;
+    margin: 30px auto;
+	background-image: linear-gradient(to right,rgba(500, 0, 20, 0.5),rgba(0, 0, 800, 0.8));
+	border-radius: 10px;
+}

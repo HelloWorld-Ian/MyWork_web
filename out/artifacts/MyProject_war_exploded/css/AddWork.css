@@ -1,0 +1,507 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.cavs{
+	z-index:0;
+	position: fixed;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+html,body{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../img/bg1.jpg") no-repeat;
+	background-size: 100% 100%;
+
+}
+#bg{
+	margin-left: 0px;
+	margin-top: 0px;
+		padding: 0;
+		border: 0;
+		width: 100%;
+		height: 100%;
+	    background-color: gray;  
+	    filter:alpha(opacity=50);/*IE*/    
+	    opacity:0.5;/*FF*/    
+	    z-index:1;  
+	    position:absolute;/*IE6*/  
+		display: none;
+		z-index: 1;
+}
+#dialog_projectAdd{
+	width: 300px;
+	height: 230px;
+	border: 0;
+	background-color: midnightblue;
+	position: absolute;
+	z-index: 50;
+	display: none;
+	margin-top: 100px;
+	margin-left: 450px;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+}
+.ProjectsDialog_button{
+	width: 90px;
+	height: 43px;
+	margin-top: 15px;
+	margin-left: 50px;
+	margin-right: -30px;
+	background-color: royalblue ;
+	border-radius: 10px;
+	float: left;
+}
+#SaveProject,#Cancle{
+	width: 95%;
+	height: 90%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+#SaveProject:hover,#Cancle:hover,#AddProject:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#header{
+	width: 100%;
+	height:15px;
+	border-bottom: 1px solid dimgray;
+}
+#author{
+	font-size:0.1px;
+	float: right;
+	padding-bottom: 0px;
+}
+/*#Project_Name,#TimeType{*/
+/*	width: 96%;*/
+/*	height: 82%;*/
+/*	margin: 2px 2px;*/
+/*	border: 0;*/
+/*	outline: none;*/
+/*	background-color: midnightblue;*/
+/*	color: aliceblue;*/
+/*	border-radius: 30px;*/
+/*    text-align: center;*/
+/*}*/
+#Button{
+	width: 97%;
+	height: 89%;
+	margin: 2px 3px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+#Button:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#Main{
+	position: absolute;
+	width:  1200px;
+	height: 500px;
+	left: 50%;
+	margin-left: -600px;
+	top: 5%;
+	background: rgba(0,0,0,0.5);
+	border-radius: 10px;
+	box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
+}
+#Main>#project{
+	opacity: 0.85;
+	width:  320px;
+	height: 450px;
+	margin-left: 15px;
+	margin-top: 20px;
+	border: 1px solid  midnightblue;
+	background:midnightblue;
+	border-radius: 10px;
+	float: left;
+	/*box-shadow:10px 10px 10px darkblue;*/
+}
+#Main>#project>#Projects_edit{
+	width:  300px;
+	height: 300px;
+	margin-left: 8px;
+	 margin-top: 20px;
+	border: 1px solid  royalblue;
+	background:royalblue;
+	border-radius: 10px;
+	float: left;
+
+}
+
+#Main>#project>.title{
+	margin-top: 15px;
+	text-align: center;
+	font-size: 35px;
+	color: white;
+}
+#Main>#project>#Projects_edit>#formHead{
+	width:  280px;
+	height: 30px;
+	margin-left: 8px;
+	margin-top: 15px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+}
+#Main>#project>#Projects_edit>.item{
+	width:  280px;
+	height: 30px;
+	margin-left: 8px;
+	margin-top: 15px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+}
+#Main>#project>#Projects_edit>.item>.Name{
+	width:  120px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	border: 1px solid  lightblue;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project>#Projects_edit>.item>.TimeType{
+	width:  90px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	border: 1px solid  lightblue;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project>#Projects_edit>#formHead>.TimeType{
+	width:  90px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	border: 1px solid  lightblue;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+/*.item:hover{*/
+/*	background-color: royalblue;*/
+/*}*/
+/*#Main>#project>#Projects_edit>#formHead:hover{*/
+/*	background-color:lightblue;*/
+/*}*/
+#Main>#project>#Projects_edit>#formHead>.Name{
+	width:  120px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	border: 1px solid  lightblue;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#AddProject{
+	width: 97%;
+	height: 92%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+.Projects_button{
+	width: 140px;
+	height: 40px;
+	margin-top: 15px;
+	margin-left: 90px;
+	margin-right: -20px;
+	background-color: royalblue ;
+	border-radius: 10px;
+	float: left;
+}
+#Main>#leftColum{
+	
+	margin-left: 15px;
+	margin-top: 20px;
+	border-radius: 10px;
+	float: left;
+}
+#Main>#leftColum>#dataEdit{
+	opacity: 0.85;
+	width:  300px;
+	height: 305px;
+	margin-left: -1px;
+   	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	/*box-shadow:-5px 50px 100px darkblue;*/
+	
+}
+#Main>#leftColum>#ButtonArea{
+	opacity: 0.85;
+	width:  300px;
+	height: 120px;
+	margin-left: -1px;
+	margin-top: 20px;
+	background: midnightblue;
+	border-radius: 10px;
+    /*box-shadow:0px 20px 50px darkblue;*/
+	
+}
+#AddData,#GoBack{
+	width: 95%;
+	height: 92%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+#AddData:hover,#GoBack:hover,#formHead:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#Main>#leftColum>#ButtonArea>.ButtonArea_button{
+	width: 90px;
+	height: 55px;
+	margin-top: 30px;
+	margin-left: 45px;
+	margin-right: -20px;
+	background-color: royalblue ;
+	border-radius: 10px;
+	float: left;
+}
+
+#Main>#leftColum>#ButtonArea>.ButtonArea_button{
+	width: 90px;
+	height: 55px;
+	margin-top: 30px;
+	background-color: royalblue ;
+	border-radius: 10px;
+	float: left;
+}
+#Main>#display{
+	opacity: 0.85;
+	width:  500px;
+	height: 450px;
+	margin-left: 15px;
+	 margin-top: 20px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	/*box-shadow:0px 20px 50px darkblue;*/
+	float: left;
+}
+#Main>#display>#title{
+	margin-top: 15px;
+	text-align: center;
+	font-size: 25px;
+	color: white;
+}
+#Main>#display>#Screen{
+	width:  470px;
+	height: 361px;
+	margin-left: 15px;
+	 margin-top: 20px;
+	border: 1px solid  midnightblue;
+	background: royalblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+}
+#Main>#display>#Screen>#formHead{
+	width:  430px;
+	height: 30px;
+	margin-left: 15px;
+	margin-top: 15px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+   
+}
+#Main>#display>#Screen>#formHead>.field1{
+	width:  50px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	border: 1px solid  midnightblue;
+	background: lightblue;
+	border-radius: 6px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+	text-align: center;
+	color: #191970;
+	
+}
+#Main>#display>#Screen>#formHead>.field{
+	width:  70px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	border: 1px solid  midnightblue;
+	background: lightblue;
+	border-radius: 6px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#display>#Screen>#formHead>.field2{
+	width:  155px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	border: 1px solid  midnightblue;
+	background: lightblue;
+	border-radius: 6px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#display>#Screen>#info{
+	width:  430px;
+	height: 260px;
+	margin-left: 15px;
+	margin-top: 5px;
+	border-radius: 10px;
+	//border: 1px solid  midnightblue;
+	float: left;
+	
+}
+#Main>#display>#Screen>#info>.item{
+	width:  430px;
+	height: 30px;
+	margin-left: 0px;
+	margin-top: 15px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+}
+#Main>#display>#Screen>#info>.item>.field1{
+	width:  50px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	border: 1px solid  midnightblue;
+	background: lightblue;
+	border-radius: 6px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+	text-align: center;
+	color: #191970;
+	
+}
+#Main>#display>#Screen>#info>.item>.field{
+	width:  70px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	border: 1px solid  midnightblue;
+	background: lightblue;
+	border-radius: 6px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#display>#Screen>#info>.item>.field2{
+	width:  155px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	border: 1px solid  midnightblue;
+	background: lightblue;
+	border-radius: 6px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#display>#Screen>#turn_page{
+	width:  430px;
+	height: 27px;
+	margin-left: 15px;
+	margin-top: 8px;
+	border-radius: 10px;
+	float: left;
+}
+#Main>#leftColum>#dataEdit>.title{
+	margin-top: 15px;
+	text-align: center;
+	font-size: 35px;
+	color: white;
+}
+.border>.text{
+	border:1px solid;
+	border-image: -webkit-linear-gradient(right ,red , blue)1 10 1; /* 控制边框颜色渐变 */
+	border-image: -moz-linear-gradient(right, red , blue)1 10 1;
+	border-image: linear-gradient(right , red , blue)1 10 1; /* 标准的必须写在最后 */
+	width: 185px;
+	height: 29px;
+	margin-top: 25px;
+	margin-bottom: 10px;
+	margin-left: 18%;
+	outline: none;
+	background: transparent;
+	color: aliceblue;
+	border-radius: 10px;
+	text-align: center;
+}
+.button{
+	width: 199px;
+	height: 35px;
+    margin: 30px auto;
+	background-color: royalblue ;
+	background-image: linear-gradient(to right,red,blue);
+	border-radius: 10px;
+}
+

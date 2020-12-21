@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="GBK">
+	<title>homePage</title>
+	<link rel="stylesheet" href="css/mainDish.css"/>
+	<script src="js/vue.js"></script>
+	<script src="js/Mytools.js"></script>
+	<script src="js/jquery-3.5.1.js"></script>
+	<script src="js/ban.js"></script>
+
+</head>
+<body>
+<!--header start-->
+<div id="header">
+	<div id="author">
+
+	</div>
+</div>
+<!--header end-->
+<canvas class="cavs" width="1575" height="1337"></canvas>
+<form id="Main" method="post" action="/register">
+	<div class="title">
+		<span>主界面</span>
+	</div>
+	<div class="button" >
+		<input type="button" class="Button" value="项目录入" @click="AddWork"/>
+	</div>
+	<div class="button" >
+		<input type="button" class="Button" value="项目管理" @click="EditWork"/>
+	</div>
+	<div class="button">
+		<input type="button" class="Button" value="我的计划"/>
+	</div>
+	<div class="button" >
+		<input type="button" class="Button" value="项目可视化" @click="drawing"/>
+	</div>
+	<div class="button" >
+		<input type="button" class="Button" value="退出" @click="back"/>
+	</div>
+	</form>
+     <script>
+		 window.onload=function (){
+            $("#author").append('用户 '+user+',欢迎你！');
+
+		 }
+         var user=getURLParam("user");
+		 var user_id=getURLParam("user_id")
+		 var app=new Vue({
+			 el:"#Main",
+			 methods:{
+			 	AddWork:function (){
+			 		location.assign("AddWork.html?user="+user+"&user_id="+user_id);
+				},
+				EditWork:function (){
+					location.assign("editWork.html?user="+user+"&user_id="+user_id);
+				},
+				drawing:function () {
+					location.assign("drawing.html?user="+user+"&user_id="+user_id);
+				},
+				back:function () {
+					location.assign("login.html");
+				}
+			 }
+		 })
+	 </script>
+
+
+</body>
+</html>

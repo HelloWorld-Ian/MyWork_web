@@ -1,0 +1,758 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+.cavs{
+	z-index:0;
+	position: fixed;
+	margin-left: 20px;
+	margin-right: 20px;
+}
+
+html,body{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	width: 100%;
+	height: 100%;
+	background: url("../img/bg1.jpg") no-repeat;
+	background-size: 100% 100%;
+	background-attachment: fixed;
+}
+#bg{
+	margin-left: 0px;
+	margin-top: 0px;
+		padding: 0;
+		border: 0;
+		width: 100%;
+		height: 100%;
+	    background-color: gray;  
+	    filter:alpha(opacity=50);/*IE*/    
+	    opacity:0.5;/*FF*/    
+	    z-index:1;  
+	    position:absolute;/*IE6*/  
+		display: none;
+		z-index: 1;
+	 
+}
+#search_dialog,#delete_dialog,#plan_search_dialog{
+	width: 350px;
+	height: 250px;
+	border: 0;
+	background-color: midnightblue;
+	position: absolute;
+	z-index: 2;
+	display: none;
+	top: 5%;
+	left: 50%;
+	margin-left: -175px;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+}
+#delete_alert,#plan_delete_alert{
+	width: 270px;
+	height: 170px;
+	border: 0;
+	background-color: midnightblue;
+	position: absolute;
+	z-index: 2;
+	display: none;
+	top: 5%;
+	left: 50%;
+	margin-left: -135px;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+}
+#delete_alert>#alert_words,#plan_delete_alert>#alert_words{
+	width: 150px;
+	height: 50px;
+	margin-top: 30px;
+	margin-bottom: 30px;
+	margin-left: 55px;
+	font-size: 18px;
+	text-align: center;
+	color: white;
+}
+#delete_alert>.dialog_button,#plan_delete_alert>.dialog_button{
+	width: 76px;
+	height: 35px;
+	margin-top: 3px;
+	margin-left: 45px;
+	margin-right: -25px;
+	border-radius: 10px;
+	background-color: royalblue;
+	float: left;
+	color: white;
+}
+#delete_alert>.Dialog_Button,#plan_delete_alert>.Dialog_Button{
+	width: 95%;
+	height: 89%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+#change_dialog{
+	width: 350px;
+	height: 300px;
+	border: 0;
+	background-color: midnightblue;
+	position: absolute;
+	z-index: 2;
+	display: none;
+	top: 5%;
+	left: 50%;
+	margin-left: -175px;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+}
+#plan_change_dialog{
+	width: 350px;
+	height: 375px;
+	border: 0;
+	background-color: midnightblue;
+	position: absolute;
+	z-index: 2;
+	display: none;
+	margin-top: 5%;
+	left: 50%;
+	margin-left: -175px;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+}
+#plan_change_dialog>.dialog_button{
+	width: 80px;
+	height: 41px;
+	margin-top: 3px;
+	margin-left: 42px;
+	margin-right: -30px;
+	border-radius: 10px;
+	background-color: royalblue;
+	float: left;
+	color: white;
+}
+
+#addPlans{
+	width: 300px;
+	height: 400px;
+	border: 0;
+	font-size: 20px;
+	color: white;
+	background-color: midnightblue;
+	position: absolute;
+	z-index: 2;
+	display: none;
+	top: 5%;
+	margin-left: -150px;
+	left: 50%;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+    text-align: center;
+}
+#addPlans>.title{
+	width: 200px;
+	height: 50px;
+	margin-top: 20px;
+	margin-bottom: -40px;
+	margin-left: 50px;
+	text-align: center;
+	font-size: 25px;
+	color: white;
+}
+#addPlans>.dialog_button{
+	width: 80px;
+	height: 35px;
+	margin-top: 3px;
+	margin-left: 55px;
+	margin-right: -25px;
+	border-radius: 10px;
+	background-color: royalblue;
+	float: left;
+	color: white;
+}
+/*.border{*/
+/*	width: 200px;*/
+/*	height: 35px;*/
+/*	margin: 45px auto;*/
+/*	background-color:midnightblue ;*/
+/*	border: 0;*/
+/*	outline:none;*/
+/*	background-image: linear-gradient(to right,red,blue);*/
+/*	color: white;*/
+/*	border-radius: 30px;*/
+/*}*/
+.Text{
+	border:1px solid;
+	border-image: -webkit-linear-gradient(right ,red , blue)1 10 1; /* 控制边框颜色渐变 */
+	border-image: -moz-linear-gradient(right, red , blue)1 10 1;
+	border-image: linear-gradient(right , red , blue)1 10 1; /* 标准的必须写在最后 */
+	width: 185px;
+	height: 29px;
+	margin-top: 50px;
+	margin-bottom: -50px;
+	margin-left: auto;
+	outline: none;
+	background: transparent;
+	color: aliceblue;
+	border-radius: 10px;
+	text-align: center;
+}
+.dialog_button{
+	width: 100px;
+	height: 41px;
+	margin-top: 3px;
+	margin-left: 60px;
+	margin-right: -30px;
+	border-radius: 10px;
+	background-color: royalblue;
+	float: left;
+	color: white;
+}
+.Dialog_Button{
+	width: 95%;
+	height: 89%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+#plan_display{
+	opacity: 0.95;
+	position: absolute;
+	width:  500px;
+	height: 490px;
+	margin-left: -250px;
+	left: 50%;
+	top: 5%;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:0px 20px 50px darkblue;
+	z-index: 2;
+	display: none;
+}
+#plan_display>#title{
+	width:  450px;
+	height: 40px;
+	margin-top: 15px;
+	margin-left: 25px;
+	font-size: 25px;
+	color: white;
+}
+#plan_display>#title>#plan_title{
+	width:  150px;
+	height: 40px;
+	margin-top: 0px;
+	margin-left: 5px;
+	text-align: center;
+	font-size: 29px;
+	color: white;
+}
+#plan_display>#title>.plan_buttonArea{
+	width:70px;
+	height: 42px;
+	margin-top: -40px;
+	margin-right: 25px;
+	background-color: royalblue;
+	border-radius: 10px;
+	color: white;
+	float: right;
+	
+}
+#plan_display>#title>.plan_buttonArea>.plan_button{
+	width: 94.5%;
+	height: 89%;
+	margin-top: 2px;
+	margin-left: 2px;
+	padding-top: -5px;
+	background-color: midnightblue;
+	outline: none;
+	border-radius: 8px;
+	border: 0;
+	color: white;
+}
+#plan_display>#title>.plan_buttonArea>.plan_button:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#plan_display>.plan_buttonArea{
+	width:70px;
+	height: 42px;
+	margin-top: -20px;
+	margin-right: 40px;
+	margin-left: -20px;
+	background-color: royalblue;
+	border-radius: 10px;
+	color: white;
+	float: right;
+}
+#plan_display>.plan_buttonArea>.plan_button{
+	width: 94.5%;
+	height: 90%;
+	margin-top: 2px;
+	margin-left: 2px;
+	padding-top: -5px;
+	background-color: midnightblue;
+	outline: none;
+	border-radius: 8px;
+	border: 0;
+	color: white;
+}
+#plan_display>.plan_buttonArea>.plan_button:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#plan_display>#Screen{
+	width:  470px;
+	height: 350px;
+	margin-left: 15px;
+	margin-top: 17px;
+	border: 1px solid  midnightblue;
+	background: royalblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+}
+#plan_display>#plan_turn_page{
+	margin-top: 7px;
+	margin-left: 35px;
+}
+#plan_display>#Screen>#formHead{
+	width:  430px;
+	height: 30px;
+	margin-left: 15px;
+	margin-top: 15px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	z-index: 50;
+}
+#plan_display>#Screen>#formHead>.field1{
+	width:  50px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+	
+}
+#plan_display>#Screen>#formHead>#num:hover,
+#plan_display>#Screen>#formHead>#time:hover,
+#plan_display>#Screen>#formHead>#name:hover,
+#plan_display>#Screen>#formHead>#pre:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+
+#plan_display>#Screen>#formHead>.field{
+	width:  70px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#plan_display>#Screen>#formHead>.field2{
+	width:  155px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#plan_display>#Screen>.info{
+	width:  430px;
+	height: 30px;
+	margin-left: 15px;
+	margin-top: 15px;
+	background: midnightblue;
+	border-radius: 10px;
+	z-index: 50;
+}
+#plan_display>#Screen>.info:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#plan_display>#Screen>.info>.field{
+	width:  70px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#plan_display>#Screen>.info>.field1{
+	width:  50px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#plan_display>#Screen>.info>.field2{
+	width:  155px;
+	height: 22px;
+	margin-left: 15px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+
+#plan_display>#Screen>#turn_page{
+	width:  430px;
+	height: 27px;
+	margin-left: 15px;
+	margin-top: 280px;
+	border: 1px solid royalblue;
+	background-color: midnightblue;
+	border-radius: 10px;
+	z-index: 50;
+}
+#Main{
+	opacity: 0.8;
+	position: absolute;
+	width:  850px;
+	height: 500px;
+	left: 50%;
+	margin-left: -425px;
+	top: 5%;
+	background: royalblue;
+	border-radius: 10px;
+	box-shadow: -15px 15px 15px rgba(6, 17, 47, 0.7);
+}
+#header{
+	width: 100%;
+	height:15px;
+	border-bottom: 1px solid dimgray;
+}
+#author{
+	font-size:0.1px;
+	float: right;
+	padding-bottom: 0px;
+}
+#Main>#projects_edit{
+	width:  270px;
+	height: 450px;
+	margin-left: 15px;
+	margin-top: 20px;
+	border: 1px solid  midnightblue;
+	background:midnightblue;
+	border-radius: 10px;
+	float: left;
+	box-shadow:10px 10px 10px darkblue;
+}
+#Main>#project_table{
+	width:  500px;
+	height: 450px;
+	margin-left: 25px;
+	 margin-top: 20px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:10px 10px 10px darkblue;
+	float: left;
+}
+.Button{
+	width: 97%;
+	height: 89%;
+	margin: 2px 3px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+.Button:hover,.Dialog_Button:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+
+linear-gradient(to right,rgba(500, 0, 20, 0.5),rgba(0, 0, 800, 0.8))
+}
+.Dialog_Button:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+
+}
+.Button:hover{
+	color: white !important;
+	background:linear-gradient(to right,rgba(500, 0, 20, 0.5),rgba(0, 0, 800, 0.8));
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#Main>#projects_edit>.button{
+	width: 199px;
+	height: 35px;
+    margin: 50px auto;
+	background-color: royalblue ;
+	background-image: linear-gradient(to right,red,blue);
+	border-radius: 10px;
+}
+
+
+#Main>#project_table>#title{
+	width: 470px;
+	height: 45px;
+	margin: 10px auto;
+	border-radius: 10px;
+	background-color: midnightblue;
+	font-size: 25px;
+}
+#Main>#project_table>#title>#words{
+	width: 120px;
+	height: 41px;
+	margin-top: 3px;
+	margin-left: 160px;
+	border-radius: 10px;
+	background-color: midnightblue;
+	font-size: 30px;
+	float:left;
+	color: white;
+}
+#Main>#project_table>#title>#showAll_Button{
+	width: 120px;
+	height: 41px;
+	margin-top: 3px;
+	margin-left: 50px;
+	border-radius: 10px;
+	background-color: royalblue;
+	float: left;
+	color: white;
+}
+#Main>#project_table>#display{
+	width:  470px;
+	height: 361px;
+	margin-left: 15px;
+	 margin-top: 10px;
+	border: 1px solid  midnightblue;
+	background: royalblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+}
+#Main>#project_table>#title>#showAll_Button>#showAll{
+	width: 97%;
+	height: 91%;
+	margin: 2px 2px;
+	border: 0;
+	outline: none;
+	border-radius: 8px;
+	background-color:midnightblue ;
+	color: #F0F8FF;
+	float: left;
+}
+#Main>#project_table>#display>#datasArea{
+	width:  455px;
+	height: 300px;
+	margin-left: 5px;
+	 margin-top: 0px;
+	 margin-bottom: 10px;
+	border: 1px solid  royalblue;
+	border-radius: 10px;
+	float: left;
+}
+
+#Main>#project_table>#display>#datasArea>#formHead{
+	width:  435px;
+	height: 30px;
+	margin-left: 8px;
+	margin-top: 15px;
+	border: 1px solid  midnightblue;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+}
+#Main>#project_table>#display>#datasArea>#formHead>.ID:hover,
+#Main>#project_table>#display>#datasArea>#formHead>.Name:hover,
+#Main>#project_table>#display>#datasArea>#formHead>.TimeType:hover,
+#Main>#project_table>#display>#datasArea>#formHead>.Plan_sum:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#Main>#project_table>#display>#datasArea>#formHead>.ID{
+	width: 50px;
+	height: 22px;
+	margin-left: 13px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#datasArea>#formHead>.Name{
+	width:  120px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#datasArea>#formHead>.TimeType{
+	width:  90px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#datasArea>#formHead>.Plan_sum{
+	width:  80px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#datasArea>.project_info{
+	width:  435px;
+	height: 30px;
+	margin-left: 8px;
+	margin-top: 15px;
+	background: midnightblue;
+	border-radius: 10px;
+	box-shadow:20px 20px 50px darkblue;
+	float: left;
+}
+#Main>#project_table>#display>#datasArea>.project_info:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}
+#Main>#project_table>#display>#datasArea>.project_info>.ID{
+	width: 50px;
+	height: 22px;
+	margin-left: 13px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#datasArea>.project_info>.Name{
+	width:  120px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#datasArea>.project_info>.TimeType{
+	width:  90px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#datasArea>.project_info>.Plan_sum{
+	width:  80px;
+	height: 22px;
+	margin-left: 20px;
+	margin-top: 3px;
+	background: lightblue;
+	border-radius: 6px;
+	float: left;
+	text-align: center;
+	color: #191970;
+}
+#Main>#project_table>#display>#turn_page{
+	width:  455px;
+	height:30px;
+	margin-left: 5px;
+	 margin-top: 10px;
+	border: 1px solid  royalblue;
+	border-radius: 10px;
+	float: left;
+}
+#Main>#project_table>#title>#showAll_Button>#showAll:hover{
+	color: white !important;
+	background: #4FA1D9;
+	cursor: pointer;
+	-webkit-transition-property: background,color;
+	transition-property: background,color;
+	-webkit-transition-duration: .2s;
+	transition-duration: .2s;
+}

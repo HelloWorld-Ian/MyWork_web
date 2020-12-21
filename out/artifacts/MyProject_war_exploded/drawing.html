@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<link rel="stylesheet" href="css/drawing.css" />
+		<script src="js/jquery-3.5.1.js"></script>
+		<script src="js/vue.js"></script>
+		<script src="js/Mytools.js"></script>
+		<script src="js/ban.js"></script>
+	</head>
+	<body>
+	<canvas class="cavs" width="1575" height="1337"></canvas>
+	<div id="bg"></div>
+	  <div id="header">
+		<div id="author">
+
+		</div>
+	  </div>
+	   <div id="plan_args">
+           <div class="title" style="font-size: 35px;text-align: center;margin-top: 20px;color: white;margin-bottom: 10px">计划参数</div>
+		   <div>
+			   <input type="text" id="text_0" class="text" readonly="readonly"  placeholder="最早开始时间"/>
+		   </div>
+		   <div>
+			   <input type="text" id="text_1" class="text" readonly="readonly"  placeholder="最迟开始时间"/>
+		   </div>
+		   <div>
+			   <input type="text" id="text_2" class="text" readonly="readonly"  placeholder="最早完成时间"/>
+		   </div>
+		   <div>
+			   <input type="text" id="text_3" class="text" readonly="readonly"  placeholder="最迟完成时间"/>
+		   </div>
+		   <div>
+			   <input type="text" id="text_4" class="text" readonly="readonly"  placeholder="总时差"/>
+		   </div>
+		   <div>
+			   <input type="text" id="text_5" class="text" readonly="readonly"  placeholder="自由时差"/>
+		   </div>
+		   <div class="dialog_button" >
+			   <input type="button" class="Dialog_Button"  value="返回" @click="back"/>
+		   </div>
+	   </div>
+		<div id="project_table">
+			<div id="title">
+				<div id="words">
+					项目列表
+				</div>
+				<div id="showAll_Button">
+					<input type="button"  id="showAll"  value="返回" @click="back"/>
+				</div>
+			</div>
+			<div id="display">
+			  <div id="datasArea">
+				  <div id="formHead">
+					<div class="ID">
+						<span>编号</span>
+					</div>
+				  	<div class="Name">
+				  		<span>项目名</span>
+				  	</div>
+				  	<div class="TimeType">
+				  		<span>时间单位</span>
+				  	</div>
+					<div class="Plan_sum">
+						<span>计划数量</span>
+					</div>
+				  </div>
+			  </div>
+				<div id="turn_page" >
+					<img src="img/arrow-left-bold.png" id="turn_left" style="margin-left: 180px;margin-top: 5px;visibility: hidden" >
+					<img src="img/arrow-right-bold.png" id="turn_right" style="margin-left: 60px;margin-top: 5px;visibility: hidden" >
+				</div>
+			</div>
+			</div>
+		<div id="BackGround">
+			<img src="img/arrow-left-bold.png" id="drawing_turn_left" style="margin-left: 400px;margin-top: 5px;visibility: hidden;z-index: 2" @click="turn_left">
+			<img src="img/arrow-right-bold.png" id="drawing_turn_right" style="margin-left: 150px;margin-top: 5px;visibility: hidden;z-index: 2" @click="turn_right">
+
+			<div id="PaintGround">
+				<canvas id="paint" width="930" height="1000"></canvas>
+
+				<div class="column1" id="column1">
+<!--					<div class="Main_card">-->
+<!--						<div class="work_ID">1</div>-->
+<!--						<div class="work_Name">审题</div>-->
+<!--						<div class="Work_time">2 hours</div>-->
+<!--					</div>-->
+				</div>
+				<div class="column2" id="column2">
+
+				</div>
+				<div class="column3" id="column3">
+
+				</div>
+				<div class="column4" id="column4">
+
+				</div>
+		</div>
+
+		</div>
+		<div id="ButtonArea">
+			<div class="button" id="choosePlans">
+				<input type="button" class="Button" id="choosePlans_button" value="选择项目" @click="choosePlan"/>
+			</div>
+			<div class="button" id="MyPlans" style="display: none">
+				<input type="button" class="Button"  value="我的计划流程" />
+			</div>
+			<div class="button" id="BestPlans" style="display: none">
+				<input type="button" class="Button" value="最佳计划选择" />
+			</div>
+			<div class="button" >
+				<input type="button" class="Button" value="返回" @click="back"/>
+			</div>
+		</div>
+		<script>
+			var plan_args=new Vue({
+				el:"#plan_args",
+				methods:{
+					back:function (){
+						$("#plan_args").css("display","none");
+						$("#bg").css("display","none");
+					}
+				}
+			})
+			var ButtonArea=new Vue({
+				el:"#ButtonArea",
+				methods:{
+					back:function(){
+						location.assign("mainDish.html?user="+user+"&user_id="+user_id);
+					},
+					choosePlan:function() {
+						if(hasChoose===false){
+						$("#bg").css("display", "block");
+						var height = 50 + document.body.offsetHeight + document.getElementById("BackGround").offsetHeight
+						$("#bg").css("height", height);
+						$("#project_table").css("display", "block");
+						$("#datasArea").html("  <div id=\"formHead\">\n" +
+								"\t\t\t\t\t<div class=\"ID\">\n" +
+								"\t\t\t\t\t\t<span>编号</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  \t<div class=\"Name\">\n" +
+								"\t\t\t\t  \t\t<span>项目名</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+								"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+								"\t\t\t\t  \t</div>\n" +
+								"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+								"\t\t\t\t\t\t<span>计划数量</span>\n" +
+								"\t\t\t\t\t</div>\n" +
+								"\t\t\t\t  </div>");
+						let sum = 0;
+						for (let i = page * 5; i < projectArray.length && sum < 5; i++) {
+							$("#datasArea").append(
+									"<div class='project_info' id='test' >" +
+									"<div class='ID'>" + projectArray[i].id + "</div>" +
+									"<div class='Name'>" + projectArray[i].name + "</div>" +
+									"<div class='TimeType'>" + projectArray[i].type + "</div>" +
+									"<div class='Plan_sum'>" + projectArray[i].itemsCount + "</div>" +
+									"</div>");
+							sum++;
+						}
+						  check_page()
+					  }else{
+							$("#choosePlans_button").val("选择项目");
+							$("#BackGround").css("display","none");
+							$("#PaintGround").css("display","none");
+							hasChoose=false;
+							clearCanvas();
+							plan_Location.clear();
+							$(".column1").html("");
+							$(".column2").html("");
+							$(".column3").html("");
+							$(".column4").html("");
+							$("#MyPlans").css("display","none");
+							$("#BestPlans").css("display","none");
+							$("#turn_left").css("visibility","hidden");
+							$("#turn_right").css("visibility","hidden");
+							$("#ButtonArea").css("margin-right","-125px");
+							$("#ButtonArea").css("right","50%");
+							$("#ButtonArea").css("width","250px");
+						}
+					}
+				}
+			})
+			var PaintGround=new Vue({
+				el:"#BackGround",
+				methods:{
+					turn_left:function () {
+						$("#drawing_turn_right").css("visibility","visible");
+						if(base>0) {
+							base--;
+							drawPlans()
+							if(base===0)
+								$("#drawing_turn_left").css("visibility","hidden");
+						}else{
+							$("#drawing_turn_left").css("visibility","hidden");
+						}
+					},
+					turn_right:function (){
+						base++;
+						if(base>0){
+							$("#drawing_turn_left").css("visibility","visible");
+						}
+						drawPlans();
+						if($(".column2").html()===""){
+							$("#drawing_turn_right").css("visibility","hidden");
+						}else{
+							$("#drawing_turn_right").css("visibility","visible");
+						}
+					}
+				}
+			})
+			var project_table=new Vue({
+				el:"#project_table",
+				methods:{
+					back:function(){
+						$("#bg").css("display","none");
+						$("#project_table").css("display","none");
+					}
+				}
+			})
+			var user="";
+			var user_id="";
+			var projectArray=new Array();
+			var page=0;
+			var totalPage=0;
+			window.onload=function (){
+				base=0;
+				user=getURLParam("user");
+				user_id=getURLParam("user_id")
+				$("#author").append('用户 '+user+',欢迎你！');
+				$.ajax({
+					cache:"false",
+					async:false,
+					type:"post",
+					url:"/getProjects",
+					data: {
+						user_id: user_id
+					},
+					success:function (data){
+						projectArray=JSON.parse(data);
+					},
+					error:function (){
+						alert("fail");
+					}
+				});
+				totalPage=Math.floor(projectArray.length/5);
+			}
+			var check_page=function (){
+				if(page>0){
+					$("#turn_left").css("visibility","visible")
+				}else{
+					$("#turn_left").css("visibility","hidden")
+				}
+				if(page<totalPage){
+					$("#turn_right").css("visibility","visible")
+				}else{
+					$("#turn_right").css("visibility","hidden")
+				}
+			}
+			var hasClick=false;
+			var clickFirst;
+			var clickSecond;
+			$(document).on("click",".Main_card",function () {
+                   if(hasClick===false){
+                   	 $(this).css("background","#4FA1D9");
+                   	 clickFirst=$(this);
+                   	 hasClick=true;
+				   }else{
+                   	 hasClick=false;
+                   	 clickSecond=$(this);
+                   	 let first_id=clickFirst.find(".work_ID").html();
+                   	 first_id=first_id.replace(/[^0-9]/g,"");
+                   	 let second_id=clickSecond.find(".work_ID").html();
+                   	 second_id=second_id.replace(/[^0-9]/g,"");
+                   	 let first_index;
+                   	 let second_index;
+                   	 for(let i=0;i<plan_preWorksArray.length;i++){
+                   	 	if(plan_preWorksArray[i].work_id===first_id) {
+							first_index = i;
+						}
+						if(plan_preWorksArray[i].work_id===second_id){
+                   	 		second_index=i;
+						}
+					 }
+                   	 if(first_index===second_index||
+							 plan_preWorksArray[first_index].layer!==plan_preWorksArray[second_index].layer) {
+						 clickSecond.css("background","");
+						 clickFirst.css("background","");
+						 return;
+					 }
+                   	 let temp=plan_preWorksArray[first_index];
+                   	 plan_preWorksArray[first_index]=plan_preWorksArray[second_index];
+                   	 plan_preWorksArray[second_index]=temp;
+                   	 drawPlans();
+				   }
+
+			})
+
+			var hasChoose=false;
+			var plan_projectArray={};
+			var plan_preWorksArray=new Array();
+			var planArgs=new Map();
+			var plan_Location=new Map();
+			var selectProject_id="";
+			var selectProject_count;
+			var base=0;
+
+			$(document).on("dblclick",".Main_card",function () {
+				$("#bg").css("display","block");
+				$("#plan_args").css("display","block");
+				var select=$(this);
+				let id=select.find(".work_ID").html();
+				id=id.replace(/[^0-9]/g,"");
+				let args=planArgs.get(id);
+				for(let i=0;i<args.length;i++){
+					 let name="";
+					 if(i===0){
+					 	 name="最早开始时间："
+					 }else if(i===1){
+						 name="最早结束时间："
+					 }else if(i===2){
+						 name="最迟开始时间："
+					}else if(i===3){
+						 name="最迟结束时间："
+					}else if(i===4){
+						 name="总时差："
+					}else if(i===5){
+						 name="自由时差："
+					}
+                     let arg=args[i];
+                     let str="#text_"+i.toString();
+                     $(str).val(name+arg);
+				}
+			})
+			$(document).on("click",".project_info",function(){
+				base=0;
+				selectProject_id=$(this).find(".ID").html();
+				selectProject_count=$(this).find(".Plan_sum").html();
+				$.ajax({
+					cache: false,
+					async: false,
+					type: "post",
+					url: "/getPlans",
+					data: {
+						project_id: selectProject_id,
+						user: user_id,
+					},
+					success: function (data) {
+						if (data !== "") {
+							var tempPlan_projectArray = JSON.parse(data);
+							tempPlan_projectArray.forEach(function (v) {
+								plan_projectArray[v.id]=v;
+							})
+							hasChoose=true;
+							$("#BackGround").css("display","block");
+							$("#PaintGround").css("display","block");
+							$("#MyPlans").css("display","block");
+							$("#BestPlans").css("display","block");
+							$("#choosePlans_button").val("项目退出 ");
+							$("#ButtonArea").css("right","1%");
+							$("#ButtonArea").css("margin-right","0px");
+							$("#ButtonArea").css("width","200px");
+						} else {
+							tempPlan_projectArray = new Array();
+						}
+					},
+					error: function () {
+						alert("fail");
+					},
+
+
+				});
+				$.ajax({
+					cache: "false",
+					async: false,
+					type: "post",
+					url: "/getStructure",
+					data: {
+						project_id: selectProject_id,
+						user: user_id,
+					},
+					success: function (data) {
+						if (data !== "") {
+							plan_preWorksArray = JSON.parse(data);
+						} else {
+							plan_preWorksArray = new Array();
+						}
+					},
+					error: function () {
+						alert("fail");
+					},
+				});
+				if(plan_preWorksArray.length!==parseInt(selectProject_count)) {
+					alert("计划之间存在关系错误，请修改紧前工作关系！");
+				}
+				$.ajax({
+					cache: "false",
+					async: false,
+					type: "post",
+					url: "/getArgs",
+					data: {
+						project_id: selectProject_id,
+						user: user_id,
+					},
+					success: function (data) {
+						if (data !== "") {
+							var planArgsArray= JSON.parse(data);
+							planArgsArray.forEach(function (v) {
+								planArgs.set(v.work_id,v.args);
+							})
+						} else {
+							plan_preWorksArray = new Array();
+						}
+					},
+					error: function () {
+						alert("fail");
+					},
+				});
+				$("#bg").css("display","none");
+				$("#project_table").css("display","none");
+				drawPlans();
+				if(plan_preWorksArray.length!==0){
+					$("#drawing_turn_right").css("visibility","visible");
+				}else{
+					$("#drawing_turn_right").css("visibility","hidden");
+					$("#drawing_turn_left").css("visibility","hidden");
+				}
+			})
+			$(document).on("click","#turn_left",function(){
+				page--;
+				$("#datasArea").html("  <div id=\"formHead\">\n" +
+						"\t\t\t\t\t<div class=\"ID\">\n" +
+						"\t\t\t\t\t\t<span>编号</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t  \t<div class=\"Name\">\n" +
+						"\t\t\t\t  \t\t<span>项目名</span>\n" +
+						"\t\t\t\t  \t</div>\n" +
+						"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+						"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+						"\t\t\t\t  \t</div>\n" +
+						"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+						"\t\t\t\t\t\t<span>计划数量</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t  </div>");
+				let sum=0;
+				for(let i=page*5;i<projectArray.length&&sum<5;i++){
+					$("#datasArea").append(
+							"<div class='project_info' id='test' >"+
+							"<div class='ID'>"+projectArray[i].id+"</div>"+
+							"<div class='Name'>"+projectArray[i].name+"</div>"+
+							"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+							"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+							"</div>");
+					sum++;
+				}
+				check_page();
+			});
+			$(document).on("click","#turn_right",function(){
+				page++;
+				$("#datasArea").html("  <div id=\"formHead\">\n" +
+						"\t\t\t\t\t<div class=\"ID\">\n" +
+						"\t\t\t\t\t\t<span>编号</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t  \t<div class=\"Name\">\n" +
+						"\t\t\t\t  \t\t<span>项目名</span>\n" +
+						"\t\t\t\t  \t</div>\n" +
+						"\t\t\t\t  \t<div class=\"TimeType\">\n" +
+						"\t\t\t\t  \t\t<span>时间单位</span>\n" +
+						"\t\t\t\t  \t</div>\n" +
+						"\t\t\t\t\t<div class=\"Plan_sum\">\n" +
+						"\t\t\t\t\t\t<span>计划数量</span>\n" +
+						"\t\t\t\t\t</div>\n" +
+						"\t\t\t\t  </div>");
+				let sum=0;
+				for(let i=page*5;i<projectArray.length&&sum<5;i++){
+					$("#datasArea").append(
+							"<div class='project_info' id='test' >"+
+							"<div class='ID'>"+projectArray[i].id+"</div>"+
+							"<div class='Name'>"+projectArray[i].name+"</div>"+
+							"<div class='TimeType'>"+projectArray[i].type+"</div>"+
+							"<div class='Plan_sum'>"+projectArray[i].itemsCount+"</div>"+
+							"</div>");
+					sum++;
+				}
+				check_page();
+			});
+			var maxHeight=0;
+			var drawPlans=function () {
+				clearCanvas();
+				plan_Location.clear();
+				$(".column1").html("");
+				$(".column2").html("");
+				$(".column3").html("");
+				$(".column4").html("");
+				for(let i=0;i<plan_preWorksArray.length;i++){
+					var index=parseInt(plan_preWorksArray[i].layer)-base;
+					if(index>4||index<=0)
+						continue;
+					var id=plan_preWorksArray[i].work_id;
+					var className=".column"+index;
+					var classNomeToId="column"+index;
+					$(className).append("<div class=\"Main_card\" id=plan"+id+">" +
+							"<div class=\"work_ID\">"+"编号:"+id+"</div>" +
+							"<div class=\"work_Name\">"+plan_projectArray[id].name+"</div>" +
+							"<div class=\"Work_time\">"+"时长:"+plan_projectArray[id].timeType+"</div>" +
+							"</div>")
+					let location=document.getElementById("plan"+id);
+					plan_Location.set(id,{
+						end_x:location.offsetLeft+document.getElementById( classNomeToId).offsetLeft-5,
+						start_x:location.offsetLeft+location.offsetWidth+document.getElementById( classNomeToId).offsetLeft,
+						y:location.offsetTop+location.offsetHeight/2+document.getElementById( classNomeToId).offsetTop,
+					});
+                     maxHeight=Math.max(maxHeight,plan_Location.get(id).y+location.offsetHeight/2);
+				}
+				$("#PaintGround").css("height",maxHeight+20);
+				$("#BackGround").css("height",maxHeight+60);
+				document.getElementById("paint").height=maxHeight+20;
+				drawPlansArrow();
+			}
+			var drawPlansArrow=function () {
+				var pen=document.getElementById("paint").getContext("2d");
+				for(let i=0;i<plan_preWorksArray.length;i++){
+					var index=parseInt(plan_preWorksArray[i].layer)-base;
+					if(index>4||index<=0)
+						continue;
+					var id=plan_preWorksArray[i].work_id;
+					for(let j=0;j<plan_preWorksArray[i].nextArray.length;j++) {
+						let target = plan_preWorksArray[i].nextArray[j].toString();
+						if (!plan_Location.has(target))
+							continue;
+						if (planArgs.get(id)[4] === 0 && planArgs.get(target)[4] === 0) {
+							plan_DrawArrow(pen, plan_Location.get(id).start_x, plan_Location.get(id).y
+									, plan_Location.get(target).end_x, (19 * plan_Location.get(target).y + plan_Location.get(id).y) / 20, "red");
+						} else {
+							plan_DrawArrow(pen, plan_Location.get(id).start_x, plan_Location.get(id).y
+									, plan_Location.get(target).end_x, (19 * plan_Location.get(target).y + plan_Location.get(id).y) / 20, "white");
+
+						}
+					}
+				}
+			}
+			var clearCanvas=function () {
+				var pen=document.getElementById("paint");
+				pen.height=pen.height;
+			}
+		</script>
+	</body>
+</html>

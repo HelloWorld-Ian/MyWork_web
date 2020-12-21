@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>登录界面</title>
+	<link rel="stylesheet" href="css/login.css" />
+	<script src="js/vue.js"></script>
+	<script src="js/jquery-3.5.1.js"></script>
+	<script src="js/ban.js"></script>
+
+</head>
+<body>
+<canvas class="cavs" width="1575" height="1337"></canvas>
+<!--header start-->
+<div id="header">
+	<div id="author">
+		<span>页面作者：I an</span>
+	</div>
+</div>
+<!--header end-->
+
+<!--登录界面主体图片-->
+<form id="main_img">
+	<div ><span >我的计划</span></div>
+	<div ><span>MY WORK</span></div>
+</form>
+<!--登录界面结束-->
+
+<!--登录编辑框-->
+<form id="login_edit" >
+	<div>
+		<input type="text" class="text" autocomplete="off" id="ID" name="ID" placeholder="ID" />
+	</div>
+	<div>
+		<input type="password" class="text" autocomplete="off" id="PassWord" name="PassWord" placeholder="PASSWORD"/>
+	</div>
+	<div>
+		<input type="button" class="button" class="text" id="logIn"  value="登录" @click="login_action" />
+	</div>
+	<div>
+		<input type="button" class="button" class="text" id="register" value="注册"@click="register_action" />
+	</div>
+
+</form>
+<!--登录编辑框结束-->
+<script>
+	var vuelogIn=new Vue({
+		el:"#logIn",
+		methods:{
+			login_action:function(){
+				let ID=$('#ID').val().replace(/\s/g,"");
+				if(ID==="") {
+					alert("用户名不能为空");
+					return;
+				}
+				$.post("/loginCheck",{ID:$('#ID').val(),PassWord:$('#PassWord').val()},function(data){
+					if(data==="fail"){
+						alert("账号或密码错误，请重新输入");
+					}else{
+						location.assign("mainDish.html?user="+$('#ID').val()+'&user_id='+data)
+					}
+				},"text");
+			}
+		}
+	})
+	var vueRegister=new Vue({
+		el:"#register",
+		methods:{
+			register_action:function(){
+                  location.assign("register.html")
+			}
+		}
+
+	})
+</script>
+</body>
+</html>
