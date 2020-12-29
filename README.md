@@ -2,7 +2,7 @@
 网络计划图web项目
 
 ### 运行环境
-idea+MySQL数据库
+idea+MySQL数据库+tomcat服务器
 
 ### Mysql 数据库配置
 User —— root
